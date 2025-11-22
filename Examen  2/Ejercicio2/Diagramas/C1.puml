@@ -1,0 +1,16 @@
+@startuml C4_Context
+title c1
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+LAYOUT_LEFT_RIGHT()
+
+Person(usuario, "Usuario", "Usa la tienda")
+System_Ext(sisPedidos, "Sistema de pedidos", "Tienda online")
+
+System_Boundary(reportes, "Módulo de reportes") {
+  System(reportSys, "ReportSystem", "Genera reportes")
+}
+
+Rel(usuario, sisPedidos, "Hace consultas y pedidos")
+Rel(sisPedidos, reportSys, "Pide generar reportes con datos")
+
+@enduml

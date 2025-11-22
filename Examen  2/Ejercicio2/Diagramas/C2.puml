@@ -1,0 +1,18 @@
+@startuml C4_Container
+title c2
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+LAYOUT_LEFT_RIGHT()
+
+Person(usuario, "Usuario")
+
+System_Boundary(app, "Aplicación de reportes") {
+  Container(mainScript, "main_reportes.py",  "Codigo que llama a ReportSystem")
+  Container(modSistema, "sistema_reportes.py",  "Clase ReportSystem")
+  Container(modTipos, "tipos_reporte.py",  "Clases para cada tipo de reporte")
+}
+
+Rel(usuario, mainScript, "Ejecuta el programa")
+Rel(mainScript, modSistema, "Crea ReportSystem y llama generate_report")
+Rel(modSistema, modTipos, "Usa los generadores de reporte")
+
+@enduml

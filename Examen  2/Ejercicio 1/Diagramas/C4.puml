@@ -1,0 +1,43 @@
+@startuml C4_Class
+title c4
+
+class OrderNotificationSystem {
+  - notifications_sent
+  - factory
+  + __init__()
+  + process_order(order_data, notification_types)
+  + get_notification_history()
+}
+
+class NotificationFactory {
+  + create_notifier(notif_type)
+}
+
+class Notifier {
+  + send(order_data)
+}
+
+class EmailNotifier {
+  + send(order_data)
+}
+
+class SmsNotifier {
+  + send(order_data)
+}
+
+class PushNotifier {
+  + send(order_data)
+}
+
+OrderNotificationSystem --> NotificationFactory
+OrderNotificationSystem --> Notifier
+
+NotificationFactory --> EmailNotifier
+NotificationFactory --> SmsNotifier
+NotificationFactory --> PushNotifier
+
+Notifier <|-- EmailNotifier
+Notifier <|-- SmsNotifier
+Notifier <|-- PushNotifier
+
+@enduml

@@ -1,0 +1,24 @@
+@startuml C4_Context
+title c1
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+LAYOUT_LEFT_RIGHT()
+
+Person(cliente, "Cliente", "Persona que realiza pedidos en la tienda online")
+
+System_Boundary(notifSys, "Sistema de Notificaciones de Pedidos") {
+  System(sistema, "OrderNotificationSystem", "Procesa pedidos y dispara notificaciones")
+}
+
+System_Ext(appTienda, "Aplicación de Tienda Online", "Backend o frontend que usa el sistema de notificaciones")
+System_Ext(emailSrv, "Servicio de Email", "Envío de correos")
+System_Ext(smsSrv, "Gateway SMS", "Envío de mensajes SMS")
+System_Ext(pushSrv, "Servicio Push", "Notificaciones a dispositivos")
+
+Rel(cliente, appTienda, "Realiza pedido")
+Rel(appTienda, sistema, "Envía datos del pedido y tipos de notificación", "Llamada Python")
+Rel(sistema, emailSrv, "Envía notificación de pedido")
+Rel(sistema, smsSrv, "Envía notificación de pedido")
+Rel(sistema, pushSrv, "Envía notificación de pedido")
+
+@enduml
+

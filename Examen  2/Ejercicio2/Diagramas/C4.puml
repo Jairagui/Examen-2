@@ -1,0 +1,44 @@
+@startuml C4_Class
+title c4
+skinparam shadowing false
+skinparam class {
+  BackgroundColor #f8f8f8
+  BorderColor #888
+  RoundCorner 8
+}
+
+class ReportSystem {
+  - reports_generated
+  + __init__()
+  + generate_report(report_type, data, output_format, delivery_method)
+  + get_report_history()
+  - _crear_generador_reporte(report_type)
+}
+
+class GeneradorReporte {
+  + generar(data, timestamp)
+  - _nombre_reporte()
+  - _contenido(data)
+}
+
+class GeneradorReporteVentas {
+  - _nombre_reporte()
+  - _contenido(data)
+}
+
+class GeneradorReporteInventario {
+  - _nombre_reporte()
+  - _contenido(data)
+}
+
+class GeneradorReporteFinanciero {
+  - _nombre_reporte()
+  - _contenido(data)
+}
+
+ReportSystem --> GeneradorReporte : usa
+GeneradorReporte <|-- GeneradorReporteVentas
+GeneradorReporte <|-- GeneradorReporteInventario
+GeneradorReporte <|-- GeneradorReporteFinanciero
+
+@enduml

@@ -1,0 +1,20 @@
+@startuml C4_Container
+title c2
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+LAYOUT_LEFT_RIGHT()
+
+Person(cliente, "Cliente")
+
+System_Boundary(appNotif, "Aplicación de notificaciones") {
+  Container(mainScript, "main.py",  "Codigo que crea el sistema y prueba pedidos")
+  Container(modSistema, "sistema_notificaciones.py",  "Clase OrderNotificationSystem")
+  Container(modFabrica, "fabrica_notificadores.py",  "Crea el notificador según el tipo")
+  Container(modNotificador, "notificador.py", "Clases de notificación Email SMS Push")
+}
+
+Rel(cliente, mainScript, "Ejecuta el programa ")
+Rel(mainScript, modSistema, "Crea OrderNotificationSystem y llama process_order")
+Rel(modSistema, modFabrica, "Pide un notificador")
+Rel(modFabrica, modNotificador, "Usa las clases de notificación")
+
+@enduml
